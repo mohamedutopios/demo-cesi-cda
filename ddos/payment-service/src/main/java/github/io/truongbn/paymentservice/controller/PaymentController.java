@@ -13,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/payment-service")
 @RequiredArgsConstructor
 public class PaymentController {
+
     private final PaymentService paymentService;
+    
     @PostMapping
     public Type submitPayment(@RequestBody String paymentInfo) {
         return paymentService.submitPayment(paymentInfo);

@@ -15,9 +15,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
+
     private final RestTemplate restTemplate;
     private static final String SERVICE_NAME = "payment-service";
     private static final String PAYMENT_PROCESSOR_URL = "http://localhost:1010/api/v1/processor-payment";
+
+    
     @RateLimiter(name = SERVICE_NAME, fallbackMethod = "fallbackMethod")
     public Type submitPayment(String paymentInfo) {
         HttpHeaders headers = new HttpHeaders();
