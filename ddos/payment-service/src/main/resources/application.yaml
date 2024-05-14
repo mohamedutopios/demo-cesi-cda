@@ -1,0 +1,27 @@
+server:
+  port: 9090  # Définit le port sur lequel le serveur va écouter les requêtes HTTP. Ici, il s'agit du port 9090.
+
+spring:
+  application:
+    name: payment-service  # Déclare le nom de l'application Spring. Ici, l'application est nommée "payment-service".
+
+management:
+  endpoint:
+    health:
+      show-details: always  # Configure le point de terminaison de santé pour toujours afficher les détails complets du statut de l'application.
+  endpoints:
+    web:
+      exposure:
+        include: health  # Indique que seul le point de terminaison de santé est exposé via le web.
+  health:
+    ratelimiters:
+      enabled: true  # Active la surveillance des limiteurs de taux dans les vérifications de santé.
+
+resilience4j:
+  ratelimiter:
+    instances:
+      payment-service:
+        limit-for-period: 5  # Définit le nombre maximum de requêtes autorisées dans chaque période de rafraîchissement. Ici, 5 requêtes.
+        limit-refresh-period: 15s  # Spécifie la période de rafraîchissement pour le limiteur de taux. Ici, la période est de 15 secondes.
+        timeout-duration: 5s  # Définit la durée d'attente maximale pour une requête avant de générer une erreur de timeout. Ici, la durée est de 5 secondes.
+        register-health-indicator: true  # Indique que le limiteur de taux doit être enregistré comme indicateur de santé.
