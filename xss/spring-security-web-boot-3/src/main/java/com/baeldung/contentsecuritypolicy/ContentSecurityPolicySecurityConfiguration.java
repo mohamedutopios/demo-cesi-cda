@@ -8,20 +8,20 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
-//@Configuration
+@Configuration
 public class ContentSecurityPolicySecurityConfiguration {
-//    private static final String REPORT_TO = "{\"group\":\"csp-violation-report\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://localhost:8080/report\"}]}";
-//
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf(AbstractHttpConfigurer::disable)
-//            .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry.antMatchers("*/**").permitAll())
-//            .headers(httpSecurityHeadersConfigurer ->
-//                    httpSecurityHeadersConfigurer
-//                            .addHeaderWriter(new StaticHeadersWriter("Report-To", REPORT_TO))
-//                            .xssProtection(Customizer.withDefaults())
-//                            .contentSecurityPolicy(contentSecurityPolicyConfig ->
-//                                    contentSecurityPolicyConfig.policyDirectives("form-action 'self'; report-uri /report; report-to csp-violation-report")));
-//        return http.build();
-//    }
+    private static final String REPORT_TO = "{\"group\":\"csp-violation-report\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://localhost:8080/report\"}]}";
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry.antMatchers("*/**").permitAll())
+            .headers(httpSecurityHeadersConfigurer ->
+                    httpSecurityHeadersConfigurer
+                            .addHeaderWriter(new StaticHeadersWriter("Report-To", REPORT_TO))
+                            .xssProtection(Customizer.withDefaults())
+                            .contentSecurityPolicy(contentSecurityPolicyConfig ->
+                                    contentSecurityPolicyConfig.policyDirectives("form-action 'self'; report-uri /report; report-to csp-violation-report")));
+        return http.build();
+    }
 }
