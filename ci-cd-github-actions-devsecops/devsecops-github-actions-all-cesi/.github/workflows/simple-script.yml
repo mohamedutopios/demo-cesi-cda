@@ -1,0 +1,8 @@
+name: Shell command
+on: [push]
+jobs: 
+    run-shell-command:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: simple echo
+              run: echo "Est ce que vous saignez du nez ou pas en ce moment?"
